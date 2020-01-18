@@ -6,6 +6,8 @@ global screen_width, screen_height
 
 pygame.init()
 
+#Git pls
+
 screen_width=800
 screen_height=800
 
