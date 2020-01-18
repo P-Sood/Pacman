@@ -5,7 +5,6 @@ import time as t
 global screen_width, screen_height
 
 pygame.init()
-
 screen_width=800
 screen_height=800
 
