@@ -103,23 +103,13 @@ class player():
             pygame.time.delay(10000000)
             pygame.quit()
 
-    
-
-        ##        pygame.display.update()
 
     def hit(self,win):
-##        blinky=enemies(448,384,32,32,(255,0,0),12,14,blinky_img)
-##        inky=enemies(576,384,32,32,(0,0,255),12,18,inky_img)
-##        pinky=enemies(128,384,32,32,(255,20,147),12,4,pinky_img)
-##        linky=enemies(256,384,32,32,(255,140,0),12,8,linky_img)
+
         self.x_pos=400
         self.y_pos=400
         self.matrix_row=12
         self.matrix_col=12
-##        font1=pygame.font.SysFont("comicsans",100)
-##        text=font1.render("-5",1,(255,0,0))
-##        win.blit(text,(screen_width/2-text.get_width()/2,screen_height/2-text.get_height()/2))
-##        pygame.display.update()
         self.lives-=1
         i=0
         self.left=False
@@ -138,17 +128,11 @@ class player():
 
 
 class enemies():
-##    matrix1=movement_map(25,25)
-##    matrix1.map()
-    def __init__(self,x_pos,y_pos,Enem_W,Enem_H,color,matrix_row,matrix_col,img,img_scared):#,start_x,end_x,start_y,end_y,color,matrix_row,matrix_col):
+    def __init__(self,x_pos,y_pos,Enem_W,Enem_H,color,matrix_row,matrix_col,img,img_scared):
         self.x_pos=x_pos
         self.y_pos=y_pos
         self.Enem_W=Enem_W
         self.Enem_H=Enem_H
-##        self.end_x=end_x
-##        self.end_y=end_y
-##        self.start_x=start_x
-##        self.start_y=start_y
         self.img=img
         self.img_scared=img_scared
         self.color=color
@@ -172,10 +156,6 @@ class enemies():
     def scared(self,win):
         if self.visible:
             self.move()
-    ##        self.x_pos=x_pos
-    ##        self.y_pos=y_pos
-    ##        self.matrix_col=matrix_col
-    ##        self.matrix_row=matrix_row
             win.blit(self.img_scared,(self.x_pos,self.y_pos))
 
     def killed(self,win):
@@ -193,11 +173,6 @@ class enemies():
             self.y_pos=400
             self.matrix_row=12
             self.matrix_col=12
-
-    ##        font1=pygame.font.SysFont("comicsans",100)
-    ##        text=font1.render("-5",1,(255,0,0))
-    ##        win.blit(text,(screen_width/2-text.get_width()/2,screen_height/2-text.get_height()/2))
-    ##        pygame.display.update()
             i=0
             self.left=False
             self.right=False
@@ -235,19 +210,12 @@ class enemies():
             win.blit(self.img,(self.x_pos,self.y_pos))
             self.move()
 
-            
-
+        
+## did not use AI here
     def move(self):
-##movement has to be on 1/8th I believe
         if self.visible:
             matrix1=movement_map(25,25)
             matrix1.map()
-            ##we are using a random number to decide where the blinkys go,
-            ## D=0, U=1. R=2, L=3
-            ##        if self.VEL>0:## and self.right:
-
-    #------------------------------------       This is coding based on what theyve done      ---------------------------------------
-
             if self.left==True:
                 self.x_pos-=self.VEL
                 self.matrix_col-=.125
@@ -263,15 +231,8 @@ class enemies():
             if self.down==True:
                 self.y_pos+=self.VEL
                 self.matrix_row+=.125
-
-
-
-    #------------------------------------       This is coding based on walls       ---------------------------------------
-
-
             self.ran_int=r.randint(0,101)
 
-                    ## Could maybe put a do while loop here for the ran_int
 
 
 
@@ -381,7 +342,6 @@ class enemies():
                 self.down=False
                 self.left=False
                 self.up=False
-    ##            print(str(self.matrix_col) + "Going right" )
             ##LEFT
             elif self.ran_int%4==1 and matrix1.move_map[m.ceil(self.matrix_row)][m.ceil(self.matrix_col-1)]==0 and self.matrix_col>1:
                 self.x_pos-=self.VEL
@@ -390,7 +350,6 @@ class enemies():
                 self.down=False
                 self.right=False
                 self.up=False
-    ##            print(str(self.matrix_col) + "Going left" )
             ##DOWN
             elif self.ran_int%4==2 and matrix1.move_map[m.ceil(self.matrix_row+1)][m.ceil(self.matrix_col)]==0 and self.matrix_row<23:
                 self.y_pos+=self.VEL
@@ -399,7 +358,6 @@ class enemies():
                 self.right=False
                 self.left=False
                 self.up=False
-    ##            print(str(self.matrix_row) + "Going down" )
             ##UP
             elif self.ran_int%4==3 and matrix1.move_map[m.ceil(self.matrix_row-1)][m.ceil(self.matrix_col)]==0 and self.matrix_row>1:
                 self.y_pos-=self.VEL
@@ -411,37 +369,21 @@ class enemies():
 
 
 
-
-# -----------------------------------------             END             --------------------------------------------------------
-
-
-
-
-
-
-
 class movement_map():
 ##OUR MATRIX IS 25*25 WHICH MEANS EACH POSIITON IN THE MATRIX WILL BE 32 PIXELS BIG
-## THEREFORE WE JUST NEED TO CODE WHERE PACMAN CAN WALK WITH ZEROES AND ITLL BE GUCCI
+## THEREFORE WE JUST NEED TO CODE WHERE PACMAN CAN WALK WITH ZEROES AND ITLL BE fine
 
 
 
 ##Remember that moving in x direction you are actually moving columns and in the y you are moving rows
 
-##169 is our 12*12 middle poi
 
     def __init__(self,numRows,numCols):
         self.numRows=numRows
         self.numCols=numCols
-####                        Line below seems fucked
         self.move_map=[[1 for x in range(self.numRows)] for y in range(self.numCols)]
-####                        Why does this line look so fucked
     def map(self):
 #HORIZONTAL
-        #for k in range(23):
-##            self.move_map[12][k]=0 #Center
-##            self.move_map[8][k] =0 #CenterAbove
-##            self.move_map[16][k]=0 #CenterBelow
 
         for k in range (2,23):
             self.move_map[21][k] = 0
@@ -459,21 +401,18 @@ class movement_map():
         for k in range (8,16):
             self.move_map[1][k] = 0 #TOPRIGHT
             self.move_map[2][k] = 0
-            #self.move_map[22][k] = 0 #BOTTOMRIGHT
 
 
 
         for k in range (16,23):
             self.move_map[4][k] = 0
             self.move_map[5][k] = 0#TOPRIGHT
-            #self.move_map[22][k] = 0 #BOTTOMRIGHT
 
         for k in range (3,8):
 
 
             self.move_map[4][k] = 0
             self.move_map[5][k] = 0#TOPLEFT
-            #self.move_map[22][k] = 0 #BOTTOMLEFT
 
 
 
@@ -509,13 +448,9 @@ class food_map():
 # Coins will be placed at every matrix point
 
     def __init__(self,x_pos,y_pos,Radius):
-##        self.numRows=numRows
-##        self.numCols=numCols
         self.x_pos=x_pos
         self.y_pos=y_pos
         self.Radius=Radius
-
-##        self.food_map=[[1 for x in range(self.numRows)] for y in range(self.numCols)]
         self.visible=True
 
     def draw(self,win):
@@ -545,17 +480,13 @@ class coin_map():
 # Coins will be placed at every matrix point
 
     def __init__(self,x_pos,y_pos,Radius):
-##        self.numRows=numRows
-##        self.numCols=numCols
+
         self.x_pos=x_pos
         self.y_pos=y_pos
         self.Radius=Radius
-
-##        self.food_map=[[1 for x in range(self.numRows)] for y in range(self.numCols)]
         self.visible=True
 
     def draw(self,win):
-##        pygame.draw.circle(win,(255,0,105),(self.x_pos,self.y_pos),self.Radius)
         win.blit(cherry_img,(self.x_pos,self.y_pos))
 
 def main():
@@ -566,24 +497,19 @@ def main():
 
     cherry=False
     win=pygame.display.set_mode((screen_width, screen_height))
-
+    pacman=player(400,400,32,32,12,12)
+    blinky=enemies(448,384,32,32,(255,0,0),12,14,blinky_img,scared_img)
+    inky=enemies(576,384,32,32,(0,0,255),12,18,inky_img,scared_img)
+    pinky=enemies(128,384,32,32,(255,20,147),12,4,pinky_img,scared_img)
+    linky=enemies(256,384,32,32,(255,140,0),12,8,linky_img,scared_img)
     pygame.display.set_caption("Pacman")
     matrix=movement_map(25,25)
     matrix.map()
-    pacman_end=pygame.mixer.Sound("pacman_end.wav")
-    pacman_intro=pygame.mixer.Sound("pacman_beginning.wav")
-    pacman_death=pygame.mixer.Sound("pacman_death.wav")
-    chomp_food=pygame.mixer.Sound("pacman_eatfruit.wav")
-    eat_ghost=pygame.mixer.Sound("pacman_eatghost.wav")
-    powerup=pygame.mixer.Sound("pacman_chomp.wav")
-
     food_list=[]
     coin_list=[]
 
-#HORIZON
+#HORIZON food made here
 
-
-    
     for k in range(2,22,1):
         food_list.append(food_map(32*k+32,32*13,5))
         food_list.append(food_map(32*k+32,32*8,5))
@@ -608,18 +534,6 @@ def main():
 
     coin_list.append(coin_map(32*12+32,32*2,5))
     coin_list.append(coin_map(32*5+32,32*5,5))
-
-        #self.move_map[22][k] = 0 #BOTTOMRIGHT
-##
-                                ##    for k in range (3,8,2):
-                                ##        food_list.append(food_map(32*k+16,32*3+16,5))
-                                ##        #self.move_map[22][k] = 0 #BOTTOMLEFT
-                                ##
-                                ##    for k in range (8,17,2):
-                                ##        food_list.append(food_map(32*k+16,32*1+16,5))
-
-
-##Maybe we can do this all in 1 for loop using some math
 
     #VERTICAL
     for j in range(1,22, 1):
@@ -646,33 +560,9 @@ def main():
 
     food_list_iter1=len(food_list)
     score=-2
-
-
-##font1=pygame.font.SysFont("comicsans",100)
-##        text=font1.render("-5",1,(255,0,0))
-##        win.blit(text,(screen_width/2-text.get_width()/2,screen_height/2-text.get_height()/2))
-
-##    class food_map():
-##    def __init__(self,numRows,numCols,x_pos,y_pos,Radius):
-
-    font=pygame.font.SysFont("consolas",30)
-    FONT=pygame.font.SysFont("consolas",70)
-    pacman=player(400,400,32,32,12,12)
-    blinky=enemies(448,384,32,32,(255,0,0),12,14,blinky_img,scared_img)
-    inky=enemies(576,384,32,32,(0,0,255),12,18,inky_img,scared_img)
-    pinky=enemies(128,384,32,32,(255,20,147),12,4,pinky_img,scared_img)
-    linky=enemies(256,384,32,32,(255,140,0),12,8,linky_img,scared_img)
     background=background_map()
 
-    ## functions inside main
-
-##        run=True
-
     def redrawGameWindow():
-##        win.unlock()
-##        win.blit(bg,(0,0))    #This is my black background 
-
-        ##I ran thjis one
         text=font.render( 'Score: ' + str(score) ,1 , (255,255,255))
         background.draw_walls(win)
         pacman.draw(win)
@@ -764,19 +654,13 @@ def main():
                     pygame.time.delay(2)
                     cherry=True
                     coin_list.pop(coin_list.index(coin))
-                    
 
-        
-                    
-        
         if cherry==True:
             blinky.scared(win)
             linky.scared(win)
             inky.scared(win)
             pinky.scared(win)
-
-           
-##            print(start)
+                    #This is how ghosts act dependant on the abilities
             if blinky.x_pos+blinky.Enem_W>=pacman.x_pos and blinky.x_pos<=pacman.x_pos+pacman.Char_W:
                 if blinky.y_pos+blinky.Enem_H>=pacman.y_pos and blinky.y_pos<pacman.y_pos+pacman.Char_H:##or man.hitbox[1]+man.hitbox[3]<=goblin.hitbox[1]+goblin.hitbox[3]:
                     blinky.hit(win)
@@ -802,9 +686,7 @@ def main():
                     cherry=False
                     score+=5
 
-           
-            
-            
+ 
         else:
             if blinky.x_pos+blinky.Enem_W>=pacman.x_pos and blinky.x_pos<=pacman.x_pos+pacman.Char_W:
                 if blinky.y_pos+blinky.Enem_H>=pacman.y_pos and blinky.y_pos<pacman.y_pos+pacman.Char_H:##or man.hitbox[1]+man.hitbox[3]<=goblin.hitbox[1]+goblin.hitbox[3]:
@@ -846,73 +728,50 @@ def main():
                     pacman.hit(win)
                     score-=5
                     pacman_death.play()
-    
-
-       ##Id have to multiple by 1/(length_food_list[at the first iteration]-len(food_list))
-                    ##This would allow him to gradually get slower
-                    ##Then multiply by same for the 2d matrix
-
         redrawGameWindow()
 
         if (keys[pygame.K_LEFT] or pacman.left==True) and matrix.move_map[m.ceil(pacman.matrix_row)][m.ceil(pacman.matrix_col-1)]==0 and pacman.matrix_col>1:
-##            pygame.time.delay(2)
-            pacman.matrix_col-=.25#-(len(food_list)/food_list_iter1)
-            pacman.x_pos -= pacman.VEL#-(len(food_list)/food_list_iter1)
+            pacman.matrix_col-=.25
+            pacman.x_pos -= pacman.VEL
             pacman.walk_count+=1
             pacman.left=True
             pacman.right=False
             pacman.up=False
             pacman.down=False
-##            print(pacman.matrix_col)
-##            redrawGameWindow()
+
 
 
 
         if (keys[pygame.K_RIGHT] or pacman.right==True) and matrix.move_map[round(pacman.matrix_row)][m.ceil(pacman.matrix_col+1)]==0 and pacman.matrix_col<23:
-##            pygame.time.delay(2)
-            pacman.matrix_col+=.25#-(len(food_list)/food_list_iter1)
-            pacman.x_pos += pacman.VEL#-(len(food_list)/food_list_iter1)
+            pacman.matrix_col+=.25
+            pacman.x_pos += pacman.VEL
             pacman.walk_count+=1
             pacman.left=False
             pacman.right=True
             pacman.up=False
             pacman.down=False
-##            print(pacman.matrix_row, ",", pacman.matrix_col)
-##            print(pacman.x_pos,",",pacman.y_pos)
-##            print("")
-##            print(pacman.matrix_col)
-##            redrawGameWindow()
 
         if (keys[pygame.K_UP] or pacman.up==True) and matrix.move_map[m.ceil(pacman.matrix_row-1)][m.ceil(pacman.matrix_col)]==0 and pacman.matrix_row>1:
-##            pygame.time.delay(2)
-            pacman.matrix_row-=.25#-(len(food_list)/food_list_iter1)
-            pacman.y_pos -= pacman.VEL#-(len(food_list)/food_list_iter1)
+            pacman.matrix_row-=.25
+            pacman.y_pos -= pacman.VEL
             pacman.walk_count+=1
             pacman.left=False
             pacman.right=False
             pacman.up=True
             pacman.down=False
-##            print(pacman.matrix_row)
-##            redrawGameWindow()
+
 
         if (keys[pygame.K_DOWN] or pacman.down==True) and matrix.move_map[m.ceil(pacman.matrix_row+1)][m.ceil(pacman.matrix_col)]==0 and pacman.matrix_row<23:
-##            print(pacman.matrix_row)
 
-##            pygame.time.delay(2)
-            pacman.matrix_row+=.25#-(len(food_list)/food_list_iter1)
-            pacman.y_pos += pacman.VEL#-(len(food_list)/food_list_iter1)
+            pacman.matrix_row+=.25
+            pacman.y_pos += pacman.VEL
             pacman.walk_count+=1
             pacman.left=False
             pacman.right=False
             pacman.up=False
             pacman.down=True
 
-##            redrawGameWindow()
-
-
-##    redrawGameWindow()
-
-
+#This is where I call everything and run it all
 if __name__=='__main__':
     pygame.init()
     main()
