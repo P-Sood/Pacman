@@ -565,7 +565,6 @@ def main():
                     pygame.time.delay(1500)
                     run=True
 
-
     while run:
         clock.tick(36)
         keys=pygame.key.get_pressed()
